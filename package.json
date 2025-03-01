@@ -1,0 +1,22 @@
+{
+  "name": "ase-to-json",
+  "version": "1.0.0",
+  "description": "Converts Adobe Swatch Exchange Files into JSON format",
+  "main": "index.ts",
+  "scripts": {
+    "convert": "tsx src/converter.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Elton Körnmann <elton.kornmann@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "binary-parser": "^2.2.1",
+    "eslint": "^9.21.0",
+    "typescript": "^5.8.2"
+  },
+  "type": "module",
+  "dependencies": {
+    "tsx": "^4.19.3"
+  }
+}
