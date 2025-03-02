@@ -11,9 +11,12 @@
   "author": "Elton Körnmann <elton.kornmann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.21.0",
     "binary-parser": "^2.2.1",
     "eslint": "^9.21.0",
-    "typescript": "^5.8.2"
+    "eslint-config-salt-typescript": "^1.0.0",
+    "typescript": "5.7",
+    "typescript-eslint": "^8.25.0"
   },
   "type": "module",
   "dependencies": {
