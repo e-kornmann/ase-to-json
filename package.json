@@ -4,7 +4,7 @@
   "description": "Converts Adobe Swatch Exchange Files into JSON format",
   "main": "index.ts",
   "scripts": {
-    "convert": "tsx src/converter.ts",
+    "convert": "tsx index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

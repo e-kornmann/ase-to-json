@@ -9,10 +9,11 @@ export type ColorType = {
   m?: number;
   y?: number;
   k?: number;
+  lightness?: number;
+  a?: number;
   gray?: number,
   hex: string
-  type: keyof typeof COLOR_TYPES,
-  [key: string]: any
+  type: 'GLOB' | 'SPOT' | 'NORM'
 };
 
 export type ConstantObject = typeof SIGNATURE | typeof COLOR_SPACES | typeof COLOR_TYPES;
