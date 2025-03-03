@@ -1,8 +1,7 @@
 
 import iconv from 'iconv-lite'
-import { Buffer } from 'node:buffer';
-import { ColorObject } from '../types/types';
-import { cmykToHex, normalizeToHex } from './utils/utils';
+import { Buffer, Block, ColorObject } from '@/types';
+import { ColorConverter as CC } from '@/utils';
 
 // For more information about the ASE format see: http://www.selapa.net/swatches/colors/fileformats.php#adobe_ase
 const ASE_SIGNATURE = 0x41534546;
@@ -13,8 +12,8 @@ const ASE_BLOCK_TYPE_GROUP_START = 0xC001;
 const ASE_BLOCK_TYPE_GROUP_END = 0xC002;
 const ASE_COLOR_TYPES: Array<ColorObject['color']['type']> = ['GLOB', 'SPOT', 'NORM'];
 
-const readBlocks = (buffer: Buffer, offset: number) => {
-  const result: Array<object> = [],
+const readBlocks = (buffer: Buffer, offset: number): Block[] => {
+  const result: Block[] = [],
     numBlocks = buffer.readUInt32BE(8);
 
   for (let i = 0; i < numBlocks; i++) {
@@ -24,7 +23,7 @@ const readBlocks = (buffer: Buffer, offset: number) => {
   return result;
 }
 
-function readBlock(buffer: Buffer, offset: number, result: object[]): number {
+function readBlock(buffer: Buffer, offset: number, result: Block[]): number {
   const
     type = buffer.readUInt16BE(offset),
     blockLength = buffer.readUInt32BE(offset + 2);
@@ -47,56 +46,56 @@ function readBlock(buffer: Buffer, offset: number, result: object[]): number {
 
   return 6 + blockLength;
 }
-
 const readColorEntry = (buffer: Buffer, offset: number): ColorObject => {
   const nameLength = buffer.readUInt16BE(offset);
-
+  // eslint-disable-next-line no-control-regex
+  const name = readUTF16BE(buffer, offset + 2, nameLength).replace(/\u0000/g, '');  
+  
   return {
     type: 'color',
-    name: readUTF16BE(buffer, offset + 2, nameLength),
+    name,
     color: readColor(buffer, offset + 2 + nameLength * 2)
   };
-}
+};
 
-const readColor = (buffer: Buffer<ArrayBufferLike>, offset: number): ColorObject['color'] => {
+const readColor = (buffer: Buffer, offset: number): ColorObject['color'] => {
   const model = buffer.toString('utf8', offset, offset + 4).trim();
   
 
   switch (model) {
   case 'RGB': {
     const { r, g, b } = {
-      r: buffer.readFloatBE(offset + 4),
-      g: buffer.readFloatBE(offset + 8),
-      b: buffer.readFloatBE(offset + 12),
+      r: CC.toIntRGB(buffer.readFloatBE(offset + 4)),
+      g: CC.toIntRGB(buffer.readFloatBE(offset + 8)),
+      b: CC.toIntRGB(buffer.readFloatBE(offset + 12)),
     }
     return {
       model,
       r, g, b,
-      hex: normalizeToHex(r) + normalizeToHex(g) + normalizeToHex(b),
+      hex: CC.rgbToHex({ r, g, b }),
       type: ASE_COLOR_TYPES[buffer.readUInt16BE(offset + 16)]
     };
   }
   case 'CMYK': {
     const { c, m, y, k } = {
-      c: buffer.readFloatBE(offset + 4),
-      m: buffer.readFloatBE(offset + 8),
-      y: buffer.readFloatBE(offset + 12),
-      k: buffer.readFloatBE(offset + 16),
-    }
-  
+      c: CC.toIntCMYK(buffer.readFloatBE(offset + 4)),
+      m: CC.toIntCMYK(buffer.readFloatBE(offset + 8)),
+      y: CC.toIntCMYK(buffer.readFloatBE(offset + 12)),
+      k: CC.toIntCMYK(buffer.readFloatBE(offset + 16)),
+    };
     return {
       model,
       c, m, y, k,
-      hex: cmykToHex(c,m,y,k),
+      hex: CC.cmykToHex(c,m,y,k),
       type: ASE_COLOR_TYPES[buffer.readUInt16BE(offset + 20)]
     }
   };
   case 'Gray': {
-    const gray = buffer.readFloatBE(offset + 4)
+    const gray = CC.toIntRGB(buffer.readFloatBE(offset + 4));
     return {
       model: model,
       gray,
-      hex: normalizeToHex(gray) + normalizeToHex(gray) + normalizeToHex(gray),
+      hex: CC.rgbToHex({ gray }),
       type: ASE_COLOR_TYPES[buffer.readUInt16BE(offset + 8)]
     };
   };
@@ -115,11 +114,14 @@ const readColor = (buffer: Buffer<ArrayBufferLike>, offset: number): ColorObject
 
 const readGroupStart = (buffer: Buffer, offset: number): { type: string, name: string } => {
   const nameLength = buffer.readUInt16BE(offset);
+  // eslint-disable-next-line no-control-regex
+  const name = readUTF16BE(buffer, offset + 2, nameLength).replace(/\u0000/g, '');  // Clean the name
+  
   return {
     type: 'group-start',
-    name: readUTF16BE(buffer, offset + 2, nameLength)
+    name
   };
-}
+};
 
 const readUTF16BE = (buffer: Buffer, offset: number, length: number) => {
   // Slice the buffer using Uint8Array.slice and convert it back to a Buffer
@@ -130,14 +132,14 @@ const readUTF16BE = (buffer: Buffer, offset: number, length: number) => {
 
 // Reduces an array of objects that contains group-start/group-end markers to an array that contants group objects
 // containing all the objects between the markers.
-function createGroups(accumulated, item) {
+const createGroups = (accumulated: Block[], item: Block): Block[] => {
   const last = accumulated[accumulated.length - 1];
 
   if (last && last.type === 'group-start') {
     if (item.type === 'group-end') {
       last.type = 'group';
     } else {
-      last.entries.push(item);
+      last.entries?.push(item);
     }
   } else if (item.type === 'group-start') {
     item.entries = [];
@@ -148,7 +150,7 @@ function createGroups(accumulated, item) {
   return accumulated;
 }
 
-const read = (buffer: Buffer) => { 
+const read = (buffer: Buffer): Block[] => { 
   if (!Buffer.isBuffer(buffer)) {
     throw new TypeError('The argument is not an instance of Buffer');
   }
