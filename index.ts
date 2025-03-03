@@ -30,12 +30,13 @@ function getOnlyTheHexColorsOfAllGroups(input: Block[], groupName?: string): Rec
 if (args.length) {
   args.forEach(a => {
     const groupData = getOnlyTheHexColorsOfAllGroups(convertion, a);
-    console.log(`Converting ${a}...`);
+    console.log(`Converting group "${a}" >`);
     console.log(JSON.stringify(groupData, null, 2));
   })
 } else {
-  console.log('Converting COLORS.ase => COLORS.json');
-  fs.writeFile('COLORS.json', JSON.stringify(convertion, null, 4), function(err) {
+  
+  
+  fs.writeFile('src/colors/COLORS.json', JSON.stringify(convertion, null, 4), function(err) {
         
     // error writing file
     if (err) {
@@ -43,6 +44,7 @@ if (args.length) {
     }
   });
   
-  console.log(JSON.stringify(convertion, null, 2));
-  console.log(`SUCCESS => ${JSON.stringify(convertion, null, 2)}`);
+
+  console.log(`${JSON.stringify(convertion, null, 2)}`);
+  console.log('COLORS.ase succesfull converted to > COLORS.json');
 }

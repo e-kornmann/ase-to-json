@@ -5,9 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "ase": "npm run ase:run",
-    "ase:run": "tsx index.ts"
+    "ase:run": "tsx ."
   },
-  "keywords": [],
+  "keywords": ["ase", "adobe", "converter", "json", "swatch", "colors", "spot", "rgb", "pantone", "cmyk", "hex"],
   "author": "Elton Körnmann <elton.kornmann@gmail.com>",
   "license": "MIT",
   "devDependencies": {

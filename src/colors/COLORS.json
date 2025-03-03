@@ -1,3 +1,218 @@
-{
-  "R=226 G=232 B=228 1 copy 2": {}
-}
+[
+    {
+        "type": "color",
+        "name": "R=226 G=232 B=228 1 copy 2",
+        "color": {
+            "model": "RGB",
+            "r": 226,
+            "g": 232,
+            "b": 228,
+            "hex": "#e2e8e4",
+            "type": "GLOB"
+        }
+    },
+    {
+        "type": "color",
+        "name": "R=71 G=255 B=71",
+        "color": {
+            "model": "RGB",
+            "r": 71,
+            "g": 255,
+            "b": 71,
+            "hex": "#47ff47",
+            "type": "GLOB"
+        }
+    },
+    {
+        "type": "group",
+        "name": "ROOT",
+        "entries": [
+            {
+                "type": "color",
+                "name": "BLACK",
+                "color": {
+                    "model": "RGB",
+                    "r": 20,
+                    "g": 20,
+                    "b": 20,
+                    "hex": "#141414",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "ASPHALT_GRAY",
+                "color": {
+                    "model": "RGB",
+                    "r": 43,
+                    "g": 58,
+                    "b": 68,
+                    "hex": "#2b3a44",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "DARK_GRAY",
+                "color": {
+                    "model": "RGB",
+                    "r": 93,
+                    "g": 91,
+                    "b": 98,
+                    "hex": "#5d5b62",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "GRAY",
+                "color": {
+                    "model": "RGB",
+                    "r": 182,
+                    "g": 182,
+                    "b": 182,
+                    "hex": "#b6b6b6",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "SILVER_GRAY",
+                "color": {
+                    "model": "RGB",
+                    "r": 205,
+                    "g": 206,
+                    "b": 209,
+                    "hex": "#cdced1",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "LIGHT_GRAY",
+                "color": {
+                    "model": "RGB",
+                    "r": 230,
+                    "g": 230,
+                    "b": 230,
+                    "hex": "#e6e6e6",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "WHITE_SMOKE",
+                "color": {
+                    "model": "RGB",
+                    "r": 245,
+                    "g": 245,
+                    "b": 245,
+                    "hex": "#f5f5f5",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "DARK_ORANGE",
+                "color": {
+                    "model": "RGB",
+                    "r": 224,
+                    "g": 112,
+                    "b": 0,
+                    "hex": "#e07000",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "ORANGE",
+                "color": {
+                    "model": "RGB",
+                    "r": 250,
+                    "g": 138,
+                    "b": 0,
+                    "hex": "#fa8a00",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "LIGHT_ORANGE",
+                "color": {
+                    "model": "RGB",
+                    "r": 253,
+                    "g": 219,
+                    "b": 178,
+                    "hex": "#fddbb2",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "WHITE",
+                "color": {
+                    "model": "RGB",
+                    "r": 255,
+                    "g": 255,
+                    "b": 255,
+                    "hex": "#ffffff",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "RED",
+                "color": {
+                    "model": "RGB",
+                    "r": 227,
+                    "g": 0,
+                    "b": 0,
+                    "hex": "#e30000",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "LIGHT_RED",
+                "color": {
+                    "model": "RGB",
+                    "r": 255,
+                    "g": 242,
+                    "b": 244,
+                    "hex": "#fff2f4",
+                    "type": "GLOB"
+                }
+            }
+        ]
+    },
+    {
+        "type": "group",
+        "name": "FAVICON",
+        "entries": [
+            {
+                "type": "color",
+                "name": "ENZO_GRAY",
+                "color": {
+                    "model": "RGB",
+                    "r": 43,
+                    "g": 58,
+                    "b": 68,
+                    "hex": "#2b3a44",
+                    "type": "GLOB"
+                }
+            },
+            {
+                "type": "color",
+                "name": "FAVICON_BACKGROUND",
+                "color": {
+                    "model": "RGB",
+                    "r": 242,
+                    "g": 247,
+                    "b": 246,
+                    "hex": "#f2f7f6",
+                    "type": "GLOB"
+                }
+            }
+        ]
+    }
+]
