@@ -1,4 +1,4 @@
-import { Block } from './src/types/types';
+import { Block } from './src/types';
 import read from './src/converter';
 import * as fs from 'fs';
 
