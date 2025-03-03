@@ -1,4 +1,5 @@
 import { COLOR_SPACES, COLOR_TYPES, SIGNATURE } from './constants';
+export { Buffer } from 'node:buffer';
 
 type ColorType = {
   model: string;
@@ -21,4 +22,4 @@ export type ColorObject = { type: 'color', name: string, color: ColorType };
 export type ColorGroup = Record<string, ColorObject> | ColorObject;
 export type RgbToHex = { r: number; g: number; b: number; gray?: never } | { gray: number; r?: never; g?: never; b?: never }
 export type Block = { type: string, name?: string, color?: ColorObject['color'], entries?: Block[] }
-export { Buffer } from 'node:buffer';
+export { COLOR_SPACES, COLOR_TYPES, SIGNATURE }

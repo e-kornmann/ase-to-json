@@ -7,14 +7,25 @@
     "ase": "npm run ase:run",
     "ase:run": "tsx ."
   },
-  "keywords": ["ase", "adobe", "converter", "json", "swatch", "colors", "spot", "rgb", "pantone", "cmyk", "hex"],
+  "keywords": [
+    "ase",
+    "adobe",
+    "converter",
+    "json",
+    "swatch",
+    "colors",
+    "spot",
+    "rgb",
+    "pantone",
+    "cmyk",
+    "hex"
+  ],
   "author": "Elton Körnmann <elton.kornmann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "binary-parser": "^2.2.1",
+    "@types/node": "^22.13.8",
     "eslint": "^9.21.0",
-    "eslint-config-salt-typescript": "^1.0.0",
     "typescript": "5.7",
     "typescript-eslint": "^8.25.0"
   },
