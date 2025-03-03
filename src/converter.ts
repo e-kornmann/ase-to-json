@@ -1,5 +1,4 @@
 
-import iconv from 'iconv-lite'
 import { Buffer, Block, ColorObject } from '@/types';
 import { ColorConverter as CC } from '@/utils';
 
@@ -49,7 +48,7 @@ function readBlock(buffer: Buffer, offset: number, result: Block[]): number {
 const readColorEntry = (buffer: Buffer, offset: number): ColorObject => {
   const nameLength = buffer.readUInt16BE(offset);
   // eslint-disable-next-line no-control-regex
-  const name = readUTF16BE(buffer, offset + 2, nameLength).replace(/\u0000/g, '');  
+  const name = CC.readUTF16BE(buffer, offset + 2, nameLength).replace(/\u0000/g, '');  
   
   return {
     type: 'color',
@@ -115,7 +114,7 @@ const readColor = (buffer: Buffer, offset: number): ColorObject['color'] => {
 const readGroupStart = (buffer: Buffer, offset: number): { type: string, name: string } => {
   const nameLength = buffer.readUInt16BE(offset);
   // eslint-disable-next-line no-control-regex
-  const name = readUTF16BE(buffer, offset + 2, nameLength).replace(/\u0000/g, '');  // Clean the name
+  const name = CC.readUTF16BE(buffer, offset + 2, nameLength).replace(/\u0000/g, '');  // Clean the name
   
   return {
     type: 'group-start',
@@ -123,11 +122,6 @@ const readGroupStart = (buffer: Buffer, offset: number): { type: string, name: s
   };
 };
 
-const readUTF16BE = (buffer: Buffer, offset: number, length: number) => {
-  // Slice the buffer using Uint8Array.slice and convert it back to a Buffer
-  const slicedBuffer = Buffer.from(Uint8Array.prototype.slice.call(buffer, offset, offset + length * 2));
-  return iconv.decode(slicedBuffer, 'utf16be');
-};
 
 
 // Reduces an array of objects that contains group-start/group-end markers to an array that contants group objects

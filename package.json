@@ -4,8 +4,8 @@
   "description": "Converts Adobe Swatch Exchange Files into JSON format",
   "main": "index.ts",
   "scripts": {
-    "ase": "tsx index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ase": "npm run ase:run",
+    "ase:run": "tsx index.ts"
   },
   "keywords": [],
   "author": "Elton Körnmann <elton.kornmann@gmail.com>",
